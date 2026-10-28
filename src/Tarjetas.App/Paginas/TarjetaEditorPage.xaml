@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tarjetas.App.ViewModels"
+             xmlns:modelos="clr-namespace:Tarjetas.App.Modelos"
+             x:Class="Tarjetas.App.Paginas.TarjetaEditorPage"
+             x:DataType="vm:TarjetaEditorViewModel"
+             Title="{Binding TituloPagina}"
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="{AppThemeBinding Light={StaticResource FondoClaro}, Dark={StaticResource FondoOscuro}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label Text="TIPO DE TARJETA" Style="{StaticResource Rotulo}" />
+            <HorizontalStackLayout Spacing="8">
+                <Button Text="Escrita" Style="{StaticResource Chip}" Command="{Binding ElegirEscritaCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding EsEscrita}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Acento}" />
+                            <Setter Property="TextColor" Value="{StaticResource AcentoTexto}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Text="Opción única" Style="{StaticResource Chip}" Command="{Binding ElegirUnicaCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding EsUnica}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Acento}" />
+                            <Setter Property="TextColor" Value="{StaticResource AcentoTexto}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Text="Múltiple" Style="{StaticResource Chip}" Command="{Binding ElegirMultipleCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding EsMultiple}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Acento}" />
+                            <Setter Property="TextColor" Value="{StaticResource AcentoTexto}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </HorizontalStackLayout>
+
+            <Label Text="PREGUNTA" Style="{StaticResource Rotulo}" Margin="0,8,0,0" />
+            <Border Style="{StaticResource Panel}">
+                <Editor x:Name="EditorPregunta" Text="{Binding Pregunta}" Placeholder="¿Qué querés recordar?"
+                        AutoSize="TextChanges" MinimumHeightRequest="72" />
+            </Border>
+
+            <!-- Escrita: la respuesta va directo -->
+            <VerticalStackLayout Spacing="12" IsVisible="{Binding EsEscrita}">
+                <Label Text="RESPUESTA" Style="{StaticResource Rotulo}" Margin="0,8,0,0" />
+                <Border Style="{StaticResource Panel}">
+                    <Editor Text="{Binding Respuesta}" Placeholder="La respuesta correcta"
+                            AutoSize="TextChanges" MinimumHeightRequest="72" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Opción única / múltiple: lista de opciones -->
+            <VerticalStackLayout Spacing="8" IsVisible="{Binding UsaOpciones}">
+                <Label Text="OPCIONES" Style="{StaticResource Rotulo}" Margin="0,8,0,0" />
+                <Label Text="{Binding AyudaOpciones}" FontSize="13" Opacity="0.7" />
+
+                <VerticalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding Opciones}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="modelos:OpcionEditable">
+                            <Border Style="{StaticResource Panel}" Padding="8,0">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <CheckBox IsChecked="{Binding EsCorrecta}" Color="{StaticResource Acento}"
+                                              VerticalOptions="Center" />
+                                    <Entry Grid.Column="1" Text="{Binding Texto}" Placeholder="Opción"
+                                           ReturnType="Next"
+                                           ReturnCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:TarjetaEditorViewModel}}, Path=AgregarOpcionCommand}" />
+                                    <Button Grid.Column="2" Text="✕" BackgroundColor="Transparent"
+                                            TextColor="{StaticResource Gris}" WidthRequest="40" HeightRequest="40" Padding="0"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TarjetaEditorViewModel}}, Path=QuitarOpcionCommand}"
+                                            CommandParameter="{Binding .}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+
+                <Button Text="+ Agregar opción" Style="{StaticResource BotonSuave}" HorizontalOptions="Start"
+                        Padding="18,0" Command="{Binding AgregarOpcionCommand}" />
+            </VerticalStackLayout>
+
+            <!-- Explicación (solo para elección) -->
+            <VerticalStackLayout Spacing="12" IsVisible="{Binding UsaOpciones}">
+                <Label Text="{Binding RotuloRespuesta}" Style="{StaticResource Rotulo}" Margin="0,8,0,0" />
+                <Border Style="{StaticResource Panel}">
+                    <Editor Text="{Binding Respuesta}" Placeholder="Se muestra después de comprobar"
+                            AutoSize="TextChanges" MinimumHeightRequest="60" />
+                </Border>
+            </VerticalStackLayout>
+
+            <Label Text="{Binding Aviso}" IsVisible="{Binding HayAviso}" FontAttributes="Bold"
+                   TextColor="{StaticResource Gris}" HorizontalOptions="Center" />
+
+            <Button Text="Guardar" Command="{Binding GuardarCommand}" Margin="0,12,0,0" />
+            <Button Text="Guardar y crear otra" Style="{StaticResource BotonSuave}"
+                    Command="{Binding GuardarYCrearOtraCommand}" IsVisible="{Binding EsNueva}" />
+            <Button Text="Eliminar tarjeta" Style="{StaticResource BotonPeligro}"
+                    Command="{Binding EliminarCommand}" IsVisible="{Binding EsEdicion}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tarjetas.App.ViewModels"
+             xmlns:modelos="clr-namespace:Tarjetas.App.Modelos"
+             x:Class="Tarjetas.App.Paginas.RepasoPage"
+             x:DataType="vm:RepasoViewModel"
+             Title="Repaso"
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="{AppThemeBinding Light={StaticResource FondoClaro}, Dark={StaticResource FondoOscuro}}">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20" RowSpacing="14">
+
+        <Label Text="{Binding Progreso}" IsVisible="{Binding EnCurso}" HorizontalOptions="Center"
+               Style="{StaticResource Rotulo}" />
+
+        <ScrollView Grid.Row="1">
+            <Grid>
+                <!-- Sesión en curso -->
+                <VerticalStackLayout Spacing="14" IsVisible="{Binding EnCurso}">
+                    <Border x:Name="PanelPregunta" BackgroundColor="{Binding FondoTarjeta}"
+                            Stroke="#33808080" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="22">
+                        <Label Text="{Binding Pregunta}" FontSize="22" FontAttributes="Bold" />
+                    </Border>
+
+                    <VerticalStackLayout x:Name="ZonaRespuesta" Spacing="12">
+                        <!-- Escrita -->
+                        <Border Style="{StaticResource Panel}" Padding="16" IsVisible="{Binding MostrarTocar}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding MostrarRespuestaCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="Tocá para ver la respuesta" FontAttributes="Bold"
+                                   TextColor="{StaticResource Gris}" HorizontalOptions="Center" />
+                        </Border>
+                        <Border Style="{StaticResource Panel}" Padding="16" IsVisible="{Binding MostrarRespuestaEscrita}">
+                            <Label Text="{Binding Respuesta}" FontSize="18" />
+                        </Border>
+
+                        <!-- Opción única / múltiple -->
+                        <VerticalStackLayout Spacing="8" IsVisible="{Binding MostrarOpciones}"
+                                             BindableLayout.ItemsSource="{Binding Opciones}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="modelos:OpcionRepaso">
+                                    <Border BackgroundColor="{Binding Fondo}" StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 12" Padding="12,8">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding AlternarCommand}" />
+                                        </Border.GestureRecognizers>
+                                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                                            <CheckBox IsChecked="{Binding Elegida}" InputTransparent="True"
+                                                      Color="{StaticResource Acento}" VerticalOptions="Center" />
+                                            <Label Grid.Column="1" Text="{Binding Texto}" FontSize="16" VerticalOptions="Center" />
+                                            <Label Grid.Column="2" Text="{Binding Marca}" FontSize="18"
+                                                   FontAttributes="Bold" VerticalOptions="Center" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+
+                        <!-- Resultado y explicación -->
+                        <VerticalStackLayout Spacing="6" IsVisible="{Binding MostrarContinuar}">
+                            <Label Text="{Binding Resultado}" FontSize="20" FontAttributes="Bold"
+                                   TextColor="{Binding ColorResultado}" />
+                            <Label Text="{Binding Respuesta}" IsVisible="{Binding MostrarExplicacion}" FontSize="16" />
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Fin de la sesión -->
+                <VerticalStackLayout Spacing="12" VerticalOptions="Center" Padding="0,60"
+                                     IsVisible="{Binding Terminado}">
+                    <Label Text="🎉" FontSize="56" HorizontalOptions="Center" />
+                    <Label Text="¡Listo por hoy!" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Label Text="{Binding ResumenFinal}" HorizontalTextAlignment="Center" Opacity="0.7" />
+                    <Button Text="Volver al mazo" Command="{Binding SalirCommand}" HorizontalOptions="Center"
+                            Padding="28,0" Margin="0,12,0,0" />
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+
+        <!-- Acciones -->
+        <VerticalStackLayout Grid.Row="2" Spacing="10">
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" IsVisible="{Binding MostrarRespuestaEscrita}">
+                <Button Text="Me olvidé" Style="{StaticResource BotonSuave}" Command="{Binding OlvidadaCommand}" />
+                <Button Grid.Column="1" Text="La recordé" Command="{Binding RecordadaCommand}" />
+            </Grid>
+            <Button Text="Comprobar" Command="{Binding ComprobarCommand}" IsVisible="{Binding MostrarComprobar}" />
+            <Button Text="Continuar" Command="{Binding ContinuarCommand}" IsVisible="{Binding MostrarContinuar}" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

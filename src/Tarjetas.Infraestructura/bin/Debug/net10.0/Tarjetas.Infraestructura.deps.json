@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Tarjetas.Infraestructura/1.0.0": {
+        "dependencies": {
+          "Tarjetas.Dominio": "1.0.0"
+        },
+        "runtime": {
+          "Tarjetas.Infraestructura.dll": {}
+        }
+      },
+      "Tarjetas.Dominio/1.0.0": {
+        "runtime": {
+          "Tarjetas.Dominio.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Tarjetas.Infraestructura/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Tarjetas.Dominio/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,11 @@
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/bin/Debug/net10.0/Tarjetas.Dominio.deps.json
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/bin/Debug/net10.0/Tarjetas.Dominio.dll
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/bin/Debug/net10.0/Tarjetas.Dominio.pdb
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/obj/Debug/net10.0/Tarjetas.Dominio.GeneratedMSBuildEditorConfig.editorconfig
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/obj/Debug/net10.0/Tarjetas.Dominio.AssemblyInfoInputs.cache
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/obj/Debug/net10.0/Tarjetas.Dominio.AssemblyInfo.cs
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/obj/Debug/net10.0/Tarjetas.Dominio.csproj.CoreCompileInputs.cache
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/obj/Debug/net10.0/Tarjetas.Dominio.dll
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/obj/Debug/net10.0/refint/Tarjetas.Dominio.dll
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/obj/Debug/net10.0/Tarjetas.Dominio.pdb
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/obj/Debug/net10.0/ref/Tarjetas.Dominio.dll

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tarjetas.App.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Paleta de Google Keep -->
+            <Color x:Key="Acento">#FBBC04</Color>
+            <Color x:Key="AcentoTexto">#202124</Color>
+            <Color x:Key="Peligro">#D93025</Color>
+            <Color x:Key="Gris">#80868B</Color>
+            <Color x:Key="FondoClaro">#FFFFFF</Color>
+            <Color x:Key="FondoOscuro">#202124</Color>
+            <Color x:Key="SuperficieClaro">#F1F3F4</Color>
+            <Color x:Key="SuperficieOscuro">#303134</Color>
+            <Color x:Key="TextoClaro">#202124</Color>
+            <Color x:Key="TextoOscuro">#E8EAED</Color>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextoClaro}, Dark={StaticResource TextoOscuro}}" />
+            </Style>
+
+            <Style x:Key="Rotulo" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource Gris}" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextoClaro}, Dark={StaticResource TextoOscuro}}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource Gris}" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <Style TargetType="Editor">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextoClaro}, Dark={StaticResource TextoOscuro}}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource Gris}" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <!-- Botón principal (amarillo Keep) -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Acento}" />
+                <Setter Property="TextColor" Value="{StaticResource AcentoTexto}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="CornerRadius" Value="22" />
+                <Setter Property="HeightRequest" Value="44" />
+            </Style>
+
+            <Style x:Key="BotonSuave" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SuperficieClaro}, Dark={StaticResource SuperficieOscuro}}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextoClaro}, Dark={StaticResource TextoOscuro}}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="CornerRadius" Value="22" />
+                <Setter Property="HeightRequest" Value="44" />
+            </Style>
+
+            <Style x:Key="BotonPeligro" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource Peligro}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="HeightRequest" Value="44" />
+            </Style>
+
+            <Style x:Key="Chip" TargetType="Button" BasedOn="{StaticResource BotonSuave}">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="CornerRadius" Value="16" />
+                <Setter Property="HeightRequest" Value="34" />
+                <Setter Property="Padding" Value="14,0" />
+            </Style>
+
+            <!-- Botón flotante del lápiz -->
+            <Style x:Key="Fab" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark={StaticResource SuperficieOscuro}}" />
+                <Setter Property="WidthRequest" Value="56" />
+                <Setter Property="HeightRequest" Value="56" />
+                <Setter Property="CornerRadius" Value="28" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <!-- Campo de texto con fondo suave -->
+            <Style x:Key="Panel" TargetType="Border">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SuperficieClaro}, Dark={StaticResource SuperficieOscuro}}" />
+                <Setter Property="StrokeThickness" Value="0" />
+                <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+                <Setter Property="Padding" Value="12,4" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

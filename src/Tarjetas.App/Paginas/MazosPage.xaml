@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tarjetas.App.ViewModels"
+             xmlns:modelos="clr-namespace:Tarjetas.App.Modelos"
+             x:Class="Tarjetas.App.Paginas.MazosPage"
+             x:DataType="vm:MazosViewModel"
+             BackgroundColor="{AppThemeBinding Light={StaticResource FondoClaro}, Dark={StaticResource FondoOscuro}}">
+
+    <Grid>
+        <Grid RowDefinitions="Auto,Auto,*" Padding="20,16,20,0" RowSpacing="14">
+            <Label Text="Mazos" FontSize="30" FontAttributes="Bold" />
+
+            <Border Grid.Row="1" Style="{StaticResource Panel}">
+                <Entry Placeholder="Buscar mazos" Text="{Binding Busqueda}" ClearButtonVisibility="WhileEditing" />
+            </Border>
+
+            <CollectionView x:Name="Lista" Grid.Row="2" ItemsSource="{Binding Mazos}" SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="12" HorizontalItemSpacing="12" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.EmptyView>
+                    <Label Text="Tocá el lápiz ✏️ para crear tu primer mazo."
+                           TextColor="{StaticResource Gris}" HorizontalTextAlignment="Center" Margin="0,48" />
+                </CollectionView.EmptyView>
+
+                <CollectionView.Footer>
+                    <BoxView HeightRequest="96" Color="Transparent" />
+                </CollectionView.Footer>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="modelos:MazoItem">
+                        <Border BackgroundColor="{Binding Fondo}" Stroke="{Binding Borde}" StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12" Padding="16" MinimumHeightRequest="110">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MazosViewModel}}, Path=AbrirCommand}"
+                                    CommandParameter="{Binding Id}" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="{Binding Nombre}" FontSize="18" FontAttributes="Bold"
+                                       MaxLines="2" LineBreakMode="TailTruncation" />
+                                <Label Text="{Binding Resumen}" FontSize="13" Opacity="0.7" />
+                                <Border IsVisible="{Binding TienePendientes}" BackgroundColor="{Binding FondoEtiqueta}"
+                                        StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="8,3"
+                                        HorizontalOptions="Start">
+                                    <Label Text="{Binding Pendientes}" FontSize="12" FontAttributes="Bold" />
+                                </Border>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <Button Text="✏️" Style="{StaticResource Fab}" Command="{Binding NuevoMazoCommand}"
+                HorizontalOptions="End" VerticalOptions="End" Margin="0,0,24,24">
+            <Button.Shadow>
+                <Shadow Brush="Black" Opacity="0.28" Radius="10" Offset="0,4" />
+            </Button.Shadow>
+        </Button>
+    </Grid>
+</ContentPage>

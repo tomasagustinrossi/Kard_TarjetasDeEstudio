@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tarjetas.App.ViewModels"
+             xmlns:modelos="clr-namespace:Tarjetas.App.Modelos"
+             x:Class="Tarjetas.App.Paginas.MazoEditorPage"
+             x:DataType="vm:MazoEditorViewModel"
+             Title="{Binding TituloPagina}"
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="{AppThemeBinding Light={StaticResource FondoClaro}, Dark={StaticResource FondoOscuro}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14">
+            <Label Text="NOMBRE DEL MAZO" Style="{StaticResource Rotulo}" />
+            <Border Style="{StaticResource Panel}">
+                <Entry Placeholder="Ej.: Historia argentina" Text="{Binding Nombre}" FontAttributes="Bold"
+                       ReturnType="Done" ReturnCommand="{Binding GuardarCommand}" />
+            </Border>
+
+            <Label Text="COLOR" Style="{StaticResource Rotulo}" Margin="0,8,0,0" />
+            <FlexLayout Wrap="Wrap" BindableLayout.ItemsSource="{Binding Colores}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="modelos:ColorOpcion">
+                        <Border BackgroundColor="{Binding Fondo}" Stroke="{Binding Borde}" StrokeThickness="2"
+                                StrokeShape="RoundRectangle 22" WidthRequest="44" HeightRequest="44" Margin="0,0,10,10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MazoEditorViewModel}}, Path=SeleccionarColorCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="✓" FontAttributes="Bold" FontSize="18" TextColor="{StaticResource AcentoTexto}"
+                                   HorizontalOptions="Center" VerticalOptions="Center"
+                                   IsVisible="{Binding Seleccionado}" />
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,16,0,0">
+                <Button Text="Cancelar" Style="{StaticResource BotonSuave}" Command="{Binding CancelarCommand}" />
+                <Button Grid.Column="1" Text="Guardar" Command="{Binding GuardarCommand}" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

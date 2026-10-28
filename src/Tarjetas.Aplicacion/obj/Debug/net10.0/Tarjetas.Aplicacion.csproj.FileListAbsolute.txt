@@ -1,0 +1,15 @@
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/bin/Debug/net10.0/Tarjetas.Aplicacion.deps.json
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/bin/Debug/net10.0/Tarjetas.Aplicacion.dll
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/bin/Debug/net10.0/Tarjetas.Aplicacion.pdb
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/bin/Debug/net10.0/Tarjetas.Dominio.dll
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/bin/Debug/net10.0/Tarjetas.Dominio.pdb
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/obj/Debug/net10.0/Tarjetas.Aplicacion.csproj.AssemblyReference.cache
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/obj/Debug/net10.0/Tarjetas.Aplicacion.GeneratedMSBuildEditorConfig.editorconfig
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/obj/Debug/net10.0/Tarjetas.Aplicacion.AssemblyInfoInputs.cache
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/obj/Debug/net10.0/Tarjetas.Aplicacion.AssemblyInfo.cs
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/obj/Debug/net10.0/Tarjetas.Aplicacion.csproj.CoreCompileInputs.cache
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/obj/Debug/net10.0/Tarjetas.354700FD.Up2Date
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/obj/Debug/net10.0/Tarjetas.Aplicacion.dll
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/obj/Debug/net10.0/refint/Tarjetas.Aplicacion.dll
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/obj/Debug/net10.0/Tarjetas.Aplicacion.pdb
+/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Aplicacion/obj/Debug/net10.0/ref/Tarjetas.Aplicacion.dll

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tarjetas.App.ViewModels"
+             xmlns:modelos="clr-namespace:Tarjetas.App.Modelos"
+             x:Class="Tarjetas.App.Paginas.MazoPage"
+             x:DataType="vm:MazoViewModel"
+             Title="{Binding Nombre}"
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="{AppThemeBinding Light={StaticResource FondoClaro}, Dark={StaticResource FondoOscuro}}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Editar mazo" Command="{Binding EditarMazoCommand}" />
+        <ToolbarItem Text="Eliminar" Command="{Binding EliminarMazoCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Grid RowDefinitions="Auto,*" Padding="20,12,20,0" RowSpacing="14">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="{Binding Resumen}" VerticalOptions="Center" Opacity="0.7" />
+                <Button Grid.Column="1" Text="{Binding TextoRepasar}" Command="{Binding RepasarCommand}"
+                        IsEnabled="{Binding HayPendientes}" Padding="22,0" />
+            </Grid>
+
+            <CollectionView x:Name="Lista" Grid.Row="1" ItemsSource="{Binding Tarjetas}" SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="12" HorizontalItemSpacing="12" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.EmptyView>
+                    <Label Text="Este mazo está vacío. Tocá el lápiz ✏️ para crear la primera tarjeta."
+                           TextColor="{StaticResource Gris}" HorizontalTextAlignment="Center" Margin="0,48" />
+                </CollectionView.EmptyView>
+
+                <CollectionView.Footer>
+                    <BoxView HeightRequest="96" Color="Transparent" />
+                </CollectionView.Footer>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="modelos:TarjetaItem">
+                        <Border BackgroundColor="{Binding Fondo}" Stroke="{Binding Borde}" StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12" Padding="14" MinimumHeightRequest="140">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MazoViewModel}}, Path=EditarTarjetaCommand}"
+                                    CommandParameter="{Binding Id}" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="{Binding Pregunta}" FontSize="16" FontAttributes="Bold"
+                                       MaxLines="5" LineBreakMode="TailTruncation" />
+                                <BoxView HeightRequest="1" Color="#33808080" />
+                                <Label Text="{Binding Detalle}" FontSize="15" Opacity="0.85"
+                                       MaxLines="8" LineBreakMode="TailTruncation" />
+                                <Border IsVisible="{Binding TieneEtiqueta}" BackgroundColor="{Binding FondoEtiqueta}"
+                                        StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="8,3"
+                                        HorizontalOptions="Start">
+                                    <Label Text="{Binding Etiqueta}" FontSize="12" FontAttributes="Bold" />
+                                </Border>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <Button Text="✏️" Style="{StaticResource Fab}" Command="{Binding NuevaTarjetaCommand}"
+                HorizontalOptions="End" VerticalOptions="End" Margin="0,0,24,24">
+            <Button.Shadow>
+                <Shadow Brush="Black" Opacity="0.28" Radius="10" Offset="0,4" />
+            </Button.Shadow>
+        </Button>
+    </Grid>
+</ContentPage>
