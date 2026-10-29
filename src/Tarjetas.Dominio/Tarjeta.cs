@@ -12,6 +12,7 @@ public sealed class Tarjeta : Entidad
     public const int LargoMaximoPregunta = 1000;
     public const int LargoMaximoRespuesta = 2000;
     public const int LargoMaximoOpcion = 300;
+    public const int LargoMaximoJustificacion = 500;
     public const int MinimoOpciones = 2;
     public const int MaximoOpciones = 6;
 
@@ -75,19 +76,34 @@ public sealed class Tarjeta : Entidad
         return correctas.ToHashSet().SetEquals(elegidas);
     }
 
+    /// <summary>
+    /// Compara lo que escribió el usuario con la respuesta, sin importar mayúsculas, tildes ni signos.
+    /// La respuesta puede tener alternativas válidas separadas por "|".
+    /// </summary>
+    public bool EsRespuestaEscritaCorrecta(string? intento)
+    {
+        if (Tipo != TipoRespuesta.Escrita)
+            throw new ExcepcionDeDominio("Esta tarjeta no es de respuesta escrita.");
+
+        var dado = TextoNormalizado.De(intento);
+        if (dado.Length == 0) return false;
+        if (dado == TextoNormalizado.De(Respuesta)) return true;
+        return Respuesta.Split('|').Select(TextoNormalizado.De).Any(alternativa => alternativa == dado);
+    }
+
     public bool EsNueva => Repaso.EsNueva;
     public bool DebeRepasarse(DateOnly hoy) => Repaso.DebeRepasarse(hoy);
     public int? DeudaVisible(DateOnly hoy) => Repaso.DeudaVisible(hoy);
     public DateOnly ProximoRepaso(DateOnly hoy) => Repaso.ProximoRepaso(hoy);
 
-    private static (string Pregunta, string Respuesta, Opcion[] Opciones) Normalizar( // Revisa que todo este correcto.
+    private static (string Pregunta, string Respuesta, Opcion[] Opciones) Normalizar(
         TipoRespuesta tipo, string? pregunta, string? respuesta, IEnumerable<Opcion>? opciones)
     {
         var p = Limpiar(pregunta, "La pregunta", LargoMaximoPregunta, obligatorio: true);
         var r = Limpiar(respuesta, "La respuesta", LargoMaximoRespuesta, obligatorio: tipo == TipoRespuesta.Escrita);
         if (tipo == TipoRespuesta.Escrita) return (p, r, []);
 
-        var lista = (opciones ?? []).Select(o => new Opcion(o.Texto?.Trim() ?? "", o.EsCorrecta)).ToArray();
+        var lista = (opciones ?? []).Select(o => new Opcion(o.Texto?.Trim() ?? "", o.EsCorrecta, o.Justificacion?.Trim() ?? "")).ToArray();
         ValidarOpciones(tipo, lista);
         return (p, r, lista);
     }
@@ -98,6 +114,8 @@ public sealed class Tarjeta : Entidad
             throw new ExcepcionDeDominio($"Agregá entre {MinimoOpciones} y {MaximoOpciones} opciones con texto.");
         if (lista.Any(o => o.Texto.Length == 0 || o.Texto.Length > LargoMaximoOpcion))
             throw new ExcepcionDeDominio($"Cada opción necesita texto (máximo {LargoMaximoOpcion} caracteres).");
+        if (lista.Any(o => o.Justificacion.Length > LargoMaximoJustificacion))
+            throw new ExcepcionDeDominio($"Cada justificación admite hasta {LargoMaximoJustificacion} caracteres.");
         if (lista.Select(o => o.Texto).Distinct(StringComparer.OrdinalIgnoreCase).Count() != lista.Length)
             throw new ExcepcionDeDominio("Las opciones no pueden repetirse.");
 

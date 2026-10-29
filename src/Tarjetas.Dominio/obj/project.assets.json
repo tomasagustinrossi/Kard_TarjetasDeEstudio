@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj",
+      "projectUniqueName": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj",
       "projectName": "Tarjetas.Dominio",
-      "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj",
+      "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj",
       "packagesPath": "/Users/tomii/.nuget/packages/",
-      "outputPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/obj/",
+      "outputPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Dominio/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/tomii/.nuget/NuGet/NuGet.Config"

@@ -390,6 +390,19 @@
           "build/net6.0/xunit.runner.visualstudio.props": {}
         }
       },
+      "Tarjetas.Aplicacion/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Tarjetas.Dominio": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Tarjetas.Aplicacion.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tarjetas.Aplicacion.dll": {}
+        }
+      },
       "Tarjetas.Dominio/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -398,6 +411,20 @@
         },
         "runtime": {
           "bin/placeholder/Tarjetas.Dominio.dll": {}
+        }
+      },
+      "Tarjetas.Infraestructura/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Tarjetas.Aplicacion": "1.0.0",
+          "Tarjetas.Dominio": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Tarjetas.Infraestructura.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tarjetas.Infraestructura.dll": {}
         }
       }
     }
@@ -830,16 +857,28 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
+    "Tarjetas.Aplicacion/1.0.0": {
+      "type": "project",
+      "path": "../../src/Tarjetas.Aplicacion/Tarjetas.Aplicacion.csproj",
+      "msbuildProject": "../../src/Tarjetas.Aplicacion/Tarjetas.Aplicacion.csproj"
+    },
     "Tarjetas.Dominio/1.0.0": {
       "type": "project",
       "path": "../../src/Tarjetas.Dominio/Tarjetas.Dominio.csproj",
       "msbuildProject": "../../src/Tarjetas.Dominio/Tarjetas.Dominio.csproj"
+    },
+    "Tarjetas.Infraestructura/1.0.0": {
+      "type": "project",
+      "path": "../../src/Tarjetas.Infraestructura/Tarjetas.Infraestructura.csproj",
+      "msbuildProject": "../../src/Tarjetas.Infraestructura/Tarjetas.Infraestructura.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Microsoft.NET.Test.Sdk >= 17.12.0",
+      "Tarjetas.Aplicacion >= 1.0.0",
       "Tarjetas.Dominio >= 1.0.0",
+      "Tarjetas.Infraestructura >= 1.0.0",
       "xunit >= 2.9.2",
       "xunit.runner.visualstudio >= 2.8.2"
     ]
@@ -850,11 +889,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/tests/Tarjetas.Pruebas/Tarjetas.Pruebas.csproj",
+      "projectUniqueName": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/tests/Tarjetas.Pruebas/Tarjetas.Pruebas.csproj",
       "projectName": "Tarjetas.Pruebas",
-      "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/tests/Tarjetas.Pruebas/Tarjetas.Pruebas.csproj",
+      "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/tests/Tarjetas.Pruebas/Tarjetas.Pruebas.csproj",
       "packagesPath": "/Users/tomii/.nuget/packages/",
-      "outputPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/tests/Tarjetas.Pruebas/obj/",
+      "outputPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/tests/Tarjetas.Pruebas/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/tomii/.nuget/NuGet/NuGet.Config"
@@ -870,8 +909,14 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj": {
-              "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj"
+            "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Aplicacion/Tarjetas.Aplicacion.csproj": {
+              "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Aplicacion/Tarjetas.Aplicacion.csproj"
+            },
+            "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj": {
+              "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj"
+            },
+            "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Infraestructura/Tarjetas.Infraestructura.csproj": {
+              "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Infraestructura/Tarjetas.Infraestructura.csproj"
             }
           }
         }

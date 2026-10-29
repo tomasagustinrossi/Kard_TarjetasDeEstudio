@@ -8,10 +8,22 @@
     ".NETCoreApp,Version=v10.0": {
       "Tarjetas.Infraestructura/1.0.0": {
         "dependencies": {
+          "Tarjetas.Aplicacion": "1.0.0",
           "Tarjetas.Dominio": "1.0.0"
         },
         "runtime": {
           "Tarjetas.Infraestructura.dll": {}
+        }
+      },
+      "Tarjetas.Aplicacion/1.0.0": {
+        "dependencies": {
+          "Tarjetas.Dominio": "1.0.0"
+        },
+        "runtime": {
+          "Tarjetas.Aplicacion.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Tarjetas.Dominio/1.0.0": {
@@ -26,6 +38,11 @@
   },
   "libraries": {
     "Tarjetas.Infraestructura/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Tarjetas.Aplicacion/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

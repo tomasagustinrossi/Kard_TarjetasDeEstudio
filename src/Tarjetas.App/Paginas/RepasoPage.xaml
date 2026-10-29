@@ -24,14 +24,14 @@
                     </Border>
 
                     <VerticalStackLayout x:Name="ZonaRespuesta" Spacing="12">
-                        <!-- Escrita -->
-                        <Border Style="{StaticResource Panel}" Padding="16" IsVisible="{Binding MostrarTocar}">
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding MostrarRespuestaCommand}" />
-                            </Border.GestureRecognizers>
-                            <Label Text="Tocá para ver la respuesta" FontAttributes="Bold"
-                                   TextColor="{StaticResource Gris}" HorizontalOptions="Center" />
+                        <!-- Escrita: escribir la respuesta -->
+                        <Border Style="{StaticResource Panel}" Padding="14,6" IsVisible="{Binding MostrarEntradaEscrita}">
+                            <Entry x:Name="EntradaRespuesta" Placeholder="Escribí tu respuesta"
+                                   Text="{Binding RespuestaEscrita}" ReturnType="Done"
+                                   ReturnCommand="{Binding ComprobarCommand}" />
                         </Border>
+
+                        <!-- Escrita: autoevaluación -->
                         <Border Style="{StaticResource Panel}" Padding="16" IsVisible="{Binding MostrarRespuestaEscrita}">
                             <Label Text="{Binding Respuesta}" FontSize="18" />
                         </Border>
@@ -49,7 +49,11 @@
                                         <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
                                             <CheckBox IsChecked="{Binding Elegida}" InputTransparent="True"
                                                       Color="{StaticResource Acento}" VerticalOptions="Center" />
-                                            <Label Grid.Column="1" Text="{Binding Texto}" FontSize="16" VerticalOptions="Center" />
+                                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                                <Label Text="{Binding Texto}" FontSize="16" />
+                                                <Label Text="{Binding Justificacion}" FontSize="13" Opacity="0.8"
+                                                       IsVisible="{Binding MostrarJustificacion}" />
+                                            </VerticalStackLayout>
                                             <Label Grid.Column="2" Text="{Binding Marca}" FontSize="18"
                                                    FontAttributes="Bold" VerticalOptions="Center" />
                                         </Grid>
@@ -58,11 +62,11 @@
                             </BindableLayout.ItemTemplate>
                         </VerticalStackLayout>
 
-                        <!-- Resultado y explicación -->
+                        <!-- Veredicto -->
                         <VerticalStackLayout Spacing="6" IsVisible="{Binding MostrarContinuar}">
-                            <Label Text="{Binding Resultado}" FontSize="20" FontAttributes="Bold"
+                            <Label Text="{Binding Resultado}" FontSize="22" FontAttributes="Bold"
                                    TextColor="{Binding ColorResultado}" />
-                            <Label Text="{Binding Respuesta}" IsVisible="{Binding MostrarExplicacion}" FontSize="16" />
+                            <Label Text="{Binding TextoCorreccion}" IsVisible="{Binding MostrarCorreccion}" FontSize="16" />
                         </VerticalStackLayout>
                     </VerticalStackLayout>
                 </VerticalStackLayout>
@@ -71,21 +75,30 @@
                 <VerticalStackLayout Spacing="12" VerticalOptions="Center" Padding="0,60"
                                      IsVisible="{Binding Terminado}">
                     <Label Text="🎉" FontSize="56" HorizontalOptions="Center" />
-                    <Label Text="¡Listo por hoy!" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
-                    <Label Text="{Binding ResumenFinal}" HorizontalTextAlignment="Center" Opacity="0.7" />
-                    <Button Text="Volver al mazo" Command="{Binding SalirCommand}" HorizontalOptions="Center"
+                    <Label Text="{Binding ResumenFinal}" FontSize="20" FontAttributes="Bold"
+                           HorizontalTextAlignment="Center" />
+                    <Label Text="{Binding PuntosTexto}" IsVisible="{Binding MostrarPuntos}"
+                           HorizontalTextAlignment="Center" Opacity="0.8" />
+                    <Button Text="Volver" Command="{Binding SalirCommand}" HorizontalOptions="Center"
                             Padding="28,0" Margin="0,12,0,0" />
+                    <Button Text="Ver las tarjetas del mazo" Style="{StaticResource BotonSuave}"
+                            Command="{Binding VerTarjetasCommand}" IsVisible="{Binding SinPendientes}"
+                            HorizontalOptions="Center" Padding="28,0" />
                 </VerticalStackLayout>
             </Grid>
         </ScrollView>
 
         <!-- Acciones -->
         <VerticalStackLayout Grid.Row="2" Spacing="10">
+            <Button Text="Comprobar" Command="{Binding ComprobarCommand}" IsVisible="{Binding MostrarComprobar}" />
+            <Button Text="Prefiero ver la respuesta" Style="{StaticResource BotonSuave}"
+                    Command="{Binding MostrarRespuestaCommand}" IsVisible="{Binding MostrarVerRespuesta}" />
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12" IsVisible="{Binding MostrarRespuestaEscrita}">
                 <Button Text="Me olvidé" Style="{StaticResource BotonSuave}" Command="{Binding OlvidadaCommand}" />
                 <Button Grid.Column="1" Text="La recordé" Command="{Binding RecordadaCommand}" />
             </Grid>
-            <Button Text="Comprobar" Command="{Binding ComprobarCommand}" IsVisible="{Binding MostrarComprobar}" />
+            <Button Text="Contar como correcta" Style="{StaticResource BotonSuave}"
+                    Command="{Binding ContarComoCorrectaCommand}" IsVisible="{Binding MostrarForzar}" />
             <Button Text="Continuar" Command="{Binding ContinuarCommand}" IsVisible="{Binding MostrarContinuar}" />
         </VerticalStackLayout>
     </Grid>

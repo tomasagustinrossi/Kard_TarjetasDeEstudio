@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tarjetas.Dominio")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6789a6a34a1ccdaa1bd6043733361ef85eca4726")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tarjetas.Dominio")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tarjetas.Dominio")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

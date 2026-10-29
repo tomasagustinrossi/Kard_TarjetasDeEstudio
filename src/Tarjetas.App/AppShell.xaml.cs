@@ -11,5 +11,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(MazoEditorPage), typeof(MazoEditorPage));
         Routing.RegisterRoute(nameof(TarjetaEditorPage), typeof(TarjetaEditorPage));
         Routing.RegisterRoute(nameof(RepasoPage), typeof(RepasoPage));
+        Routing.RegisterRoute(nameof(RecompensasPage), typeof(RecompensasPage));
+        Routing.RegisterRoute(nameof(ImportarPage), typeof(ImportarPage));
     }
 }

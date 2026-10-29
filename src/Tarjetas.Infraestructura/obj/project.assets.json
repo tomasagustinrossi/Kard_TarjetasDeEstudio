@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "Tarjetas.Aplicacion/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Tarjetas.Dominio": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Tarjetas.Aplicacion.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tarjetas.Aplicacion.dll": {}
+        }
+      },
       "Tarjetas.Dominio/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -15,6 +28,11 @@
     }
   },
   "libraries": {
+    "Tarjetas.Aplicacion/1.0.0": {
+      "type": "project",
+      "path": "../Tarjetas.Aplicacion/Tarjetas.Aplicacion.csproj",
+      "msbuildProject": "../Tarjetas.Aplicacion/Tarjetas.Aplicacion.csproj"
+    },
     "Tarjetas.Dominio/1.0.0": {
       "type": "project",
       "path": "../Tarjetas.Dominio/Tarjetas.Dominio.csproj",
@@ -23,6 +41,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "Tarjetas.Aplicacion >= 1.0.0",
       "Tarjetas.Dominio >= 1.0.0"
     ]
   },
@@ -32,11 +51,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Infraestructura/Tarjetas.Infraestructura.csproj",
+      "projectUniqueName": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Infraestructura/Tarjetas.Infraestructura.csproj",
       "projectName": "Tarjetas.Infraestructura",
-      "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Infraestructura/Tarjetas.Infraestructura.csproj",
+      "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Infraestructura/Tarjetas.Infraestructura.csproj",
       "packagesPath": "/Users/tomii/.nuget/packages/",
-      "outputPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Infraestructura/obj/",
+      "outputPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Infraestructura/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/tomii/.nuget/NuGet/NuGet.Config"
@@ -52,8 +71,11 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj": {
-              "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj"
+            "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Aplicacion/Tarjetas.Aplicacion.csproj": {
+              "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Aplicacion/Tarjetas.Aplicacion.csproj"
+            },
+            "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj": {
+              "projectPath": "/Users/tomii/Documents/Programacion/proyectosDotnet/Tarjetas/Kard_TarjetasDeEstudio/src/Tarjetas.Dominio/Tarjetas.Dominio.csproj"
             }
           }
         }

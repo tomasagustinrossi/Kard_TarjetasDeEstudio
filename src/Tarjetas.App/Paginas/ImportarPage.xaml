@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tarjetas.App.ViewModels"
+             x:Class="Tarjetas.App.Paginas.ImportarPage"
+             x:DataType="vm:ImportarViewModel"
+             Title="Importar mazo"
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="{AppThemeBinding Light={StaticResource FondoClaro}, Dark={StaticResource FondoOscuro}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14">
+
+            <Label Text="DESDE UN ARCHIVO O DESDE TEXTO" Style="{StaticResource Rotulo}" />
+            <Label Text="Acepta archivos de Tarjetas (.json), CSV/TSV y texto de Gemini (tablas, «Pregunta / Respuesta», opciones A) B) C))."
+                   FontSize="14" Opacity="0.8" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Text="Elegir archivo…" Command="{Binding ElegirArchivoCommand}" />
+                <Button Grid.Column="1" Text="Pegar texto copiado" Style="{StaticResource BotonSuave}"
+                        Command="{Binding PegarCommand}" />
+            </Grid>
+
+            <!-- Vista previa -->
+            <VerticalStackLayout Spacing="10" IsVisible="{Binding HayPrevia}">
+                <Label Text="VISTA PREVIA" Style="{StaticResource Rotulo}" Margin="0,8,0,0" />
+                <Border Style="{StaticResource Panel}">
+                    <Entry Text="{Binding Nombre}" Placeholder="Nombre del mazo" FontAttributes="Bold" />
+                </Border>
+                <Label Text="{Binding Resumen}" FontSize="14" FontAttributes="Bold" />
+                <VerticalStackLayout Spacing="2" BindableLayout.ItemsSource="{Binding Muestra}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Label Text="{Binding .}" FontSize="14" Opacity="0.8" LineBreakMode="TailTruncation" MaxLines="1" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                <Button Text="Importar este mazo" Command="{Binding ImportarCommand}" Margin="0,6,0,0" />
+            </VerticalStackLayout>
+
+            <!-- Guía del plugin de Gemini -->
+            <Border Style="{StaticResource Panel}" Padding="16" Margin="0,12,0,0">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Desde Gemini con el plugin del navegador" FontSize="17" FontAttributes="Bold" />
+                    <Label FontSize="14" Text="1. Instalalo una sola vez: en Chrome abrí chrome://extensions, activá «Modo desarrollador», elegí «Cargar descomprimida» y seleccioná la carpeta extension-gemini del proyecto." />
+                    <Label FontSize="14" Text="2. En Gemini pedí tus tarjetas (por ejemplo: «hacé una tabla Pregunta | Respuesta de este tema») y seleccioná el texto." />
+                    <Label FontSize="14" Text="3. Tocá el botón «Guardar para Tarjetas» que aparece abajo a la derecha: se descarga un archivo en tu carpeta Descargas." />
+                    <Label FontSize="14" Text="4. Volvé acá, tocá «Elegir archivo…» y elegí ese archivo." />
+                    <Label FontSize="14" Opacity="0.8" Text="Si preferís no instalar nada: copiá el texto de Gemini y usá «Pegar texto copiado»." />
+
+                    <Label Text="🔒 El plugin funciona en modo local" FontSize="14" FontAttributes="Bold" Margin="0,6,0,0" />
+                    <Button Text="{Binding TextoGuia}" Style="{StaticResource BotonSuave}" HorizontalOptions="Start"
+                            Padding="18,0" Command="{Binding AlternarGuiaCommand}" />
+                    <VerticalStackLayout Spacing="6" IsVisible="{Binding GuiaAbierta}">
+                        <Label FontSize="14" Text="• Solo corre dentro de gemini.google.com; no se activa en ninguna otra página." />
+                        <Label FontSize="14" Text="• No pide permisos de red ni de lectura de tus cuentas, y no envía nada a ningún servidor: no hay ninguna conexión a internet en su código." />
+                        <Label FontSize="14" Text="• Solo toma el texto que seleccionás (o la última respuesta de Gemini) y lo guarda como archivo en tu computadora." />
+                        <Label FontSize="14" Text="• Son solo dos archivos cortos (manifest.json y content.js): podés leerlos antes de instalarlo." />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="¿Dónde se guardan mis datos?" Style="{StaticResource BotonSuave}" HorizontalOptions="Start"
+                    Padding="18,0" Command="{Binding MostrarUbicacionCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

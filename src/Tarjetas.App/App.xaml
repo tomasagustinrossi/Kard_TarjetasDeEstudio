@@ -74,14 +74,22 @@
                 <Setter Property="Padding" Value="14,0" />
             </Style>
 
-            <!-- Botón flotante del lápiz -->
+            <!-- Botones flotantes -->
             <Style x:Key="Fab" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark={StaticResource SuperficieOscuro}}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextoClaro}, Dark={StaticResource TextoOscuro}}" />
                 <Setter Property="WidthRequest" Value="56" />
                 <Setter Property="HeightRequest" Value="56" />
                 <Setter Property="CornerRadius" Value="28" />
-                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontSize" Value="30" />
                 <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style x:Key="FabSecundario" TargetType="Button" BasedOn="{StaticResource Fab}">
+                <Setter Property="WidthRequest" Value="44" />
+                <Setter Property="HeightRequest" Value="44" />
+                <Setter Property="CornerRadius" Value="22" />
+                <Setter Property="FontSize" Value="20" />
             </Style>
 
             <!-- Campo de texto con fondo suave -->

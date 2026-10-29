@@ -83,4 +83,17 @@ public partial class MazoEditorViewModel(MazosServicio servicio) : ObservableObj
 
     [RelayCommand]
     private Task CancelarAsync() => Shell.Current.GoToAsync("..");
+
+    /// <summary>Borra el mazo (y sus recompensas) y vuelve a la pantalla principal.</summary>
+    [RelayCommand]
+    private async Task EliminarAsync()
+    {
+        if (mazoId is not { } id) return;
+        var confirmado = await Shell.Current.DisplayAlertAsync(
+            "Eliminar mazo", "Se borrarán el mazo, todas sus tarjetas y sus recompensas. No se puede deshacer.",
+            "Eliminar", "Cancelar");
+        if (!confirmado) return;
+        await servicio.EliminarMazoAsync(id);
+        await Shell.Current.GoToAsync("//MazosPage");
+    }
 }

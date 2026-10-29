@@ -31,6 +31,7 @@ internal sealed record TarjetaRegistro(
     [property: JsonPropertyName("k")] byte Tipo,
     [property: JsonPropertyName("o")] string[]? Opciones,
     [property: JsonPropertyName("a")] int[]? Correctas,
+    [property: JsonPropertyName("j")] string[]? Justificaciones,
     [property: JsonPropertyName("f")] long Creada,
     [property: JsonPropertyName("v")] int Nivel,
     [property: JsonPropertyName("u")] int? UltimoRepaso)
@@ -45,6 +46,7 @@ internal sealed record TarjetaRegistro(
             (byte)t.Tipo,
             hayOpciones ? t.Opciones.Select(o => o.Texto).ToArray() : null,
             hayOpciones ? t.Opciones.Select((o, i) => (o, i)).Where(x => x.o.EsCorrecta).Select(x => x.i).ToArray() : null,
+            hayOpciones && t.Opciones.Any(o => o.Justificacion.Length > 0) ? t.Opciones.Select(o => o.Justificacion).ToArray() : null,
             new DateTimeOffset(DateTime.SpecifyKind(t.CreadaUtc, DateTimeKind.Utc)).ToUnixTimeSeconds(),
             t.Repaso.Nivel,
             t.Repaso.UltimoRepaso?.DayNumber);
@@ -52,7 +54,9 @@ internal sealed record TarjetaRegistro(
 
     public Tarjeta ADominio()
     {
-        var opciones = (Opciones ?? []).Select((texto, i) => new Opcion(texto, Correctas?.Contains(i) == true)).ToList();
+        var opciones = (Opciones ?? [])
+            .Select((texto, i) => new Opcion(texto, Correctas?.Contains(i) == true, Justificaciones?.ElementAtOrDefault(i) ?? ""))
+            .ToList();
         return Tarjeta.Rehidratar(
             Id, (TipoRespuesta)Tipo, Pregunta ?? "", Respuesta ?? "", opciones,
             DateTimeOffset.FromUnixTimeSeconds(Creada).UtcDateTime,

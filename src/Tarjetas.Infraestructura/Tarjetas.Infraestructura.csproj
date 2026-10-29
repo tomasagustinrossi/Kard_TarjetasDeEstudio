@@ -4,5 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tarjetas.Dominio\Tarjetas.Dominio.csproj" />
+    <ProjectReference Include="..\Tarjetas.Aplicacion\Tarjetas.Aplicacion.csproj" />
   </ItemGroup>
 </Project>

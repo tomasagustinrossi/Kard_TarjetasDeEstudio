@@ -10,5 +10,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Tarjetas.Dominio\Tarjetas.Dominio.csproj" />
+    <ProjectReference Include="..\..\src\Tarjetas.Aplicacion\Tarjetas.Aplicacion.csproj" />
+    <ProjectReference Include="..\..\src\Tarjetas.Infraestructura\Tarjetas.Infraestructura.csproj" />
   </ItemGroup>
 </Project>

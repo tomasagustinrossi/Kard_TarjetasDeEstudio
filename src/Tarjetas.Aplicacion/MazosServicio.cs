@@ -1,10 +1,11 @@
 using Tarjetas.Dominio;
 using Tarjetas.Dominio.Comun;
+using Tarjetas.Dominio.Recompensas;
 
 namespace Tarjetas.Aplicacion;
 
 /// <summary>Casos de uso de mazos y tarjetas. Orquesta; las reglas viven en el dominio.</summary>
-public sealed class MazosServicio(IMazoRepositorio repositorio, TimeProvider reloj)
+public sealed class MazosServicio(IMazoRepositorio repositorio, IRecompensasRepositorio recompensas, TimeProvider reloj)
 {
     private DateOnly Hoy => DateOnly.FromDateTime(reloj.GetLocalNow().DateTime);
     private DateTime AhoraUtc => reloj.GetUtcNow().UtcDateTime;
@@ -35,27 +36,31 @@ public sealed class MazosServicio(IMazoRepositorio repositorio, TimeProvider rel
     public Task EditarMazoAsync(Guid id, string nombre, ColorMazo color, CancellationToken ct = default) =>
         ModificarAsync(id, m => m.Editar(nombre, color), ct);
 
-    public Task EliminarMazoAsync(Guid id, CancellationToken ct = default) => repositorio.EliminarAsync(id, ct);
+    public async Task EliminarMazoAsync(Guid id, CancellationToken ct = default)
+    {
+        await repositorio.EliminarAsync(id, ct);
+        await recompensas.EliminarAsync(id, ct);
+    }
 
     // ---------- Tarjetas ----------
     public Task AgregarTarjetaAsync(Guid mazoId, TarjetaDatos datos, CancellationToken ct = default) =>
         AgregarTarjetasAsync(mazoId, [datos], ct);
 
-    /// <summary>Punto de entrada también para la importación (Gemini): valida todo y agrega todas o ninguna.</summary>
+    /// <summary>Valida todo y agrega todas o ninguna.</summary>
     public Task AgregarTarjetasAsync(Guid mazoId, IEnumerable<TarjetaDatos> datos, CancellationToken ct = default)
     {
         var ahora = AhoraUtc;
         return ModificarAsync(mazoId, mazo =>
         {
             var nuevas = datos
-                .Select(d => Tarjeta.Crear(d.Tipo, d.Pregunta, d.Respuesta, ComoOpciones(d), ahora))
+                .Select(d => Tarjeta.Crear(d.Tipo, d.Pregunta, d.Respuesta, d.ComoOpciones(), ahora))
                 .ToList();
             mazo.AgregarTarjetas(nuevas);
         }, ct);
     }
 
     public Task EditarTarjetaAsync(Guid mazoId, Guid tarjetaId, TarjetaDatos datos, CancellationToken ct = default) =>
-        ModificarAsync(mazoId, m => m.ObtenerTarjeta(tarjetaId).Editar(datos.Tipo, datos.Pregunta, datos.Respuesta, ComoOpciones(datos)), ct);
+        ModificarAsync(mazoId, m => m.ObtenerTarjeta(tarjetaId).Editar(datos.Tipo, datos.Pregunta, datos.Respuesta, datos.ComoOpciones()), ct);
 
     public Task EliminarTarjetaAsync(Guid mazoId, Guid tarjetaId, CancellationToken ct = default) =>
         ModificarAsync(mazoId, m => m.QuitarTarjeta(tarjetaId), ct);
@@ -76,6 +81,12 @@ public sealed class MazosServicio(IMazoRepositorio repositorio, TimeProvider rel
         return mazo.ObtenerTarjeta(tarjetaId).EsRespuestaCorrecta(elegidas);
     }
 
+    public async Task<bool> ComprobarEscritaAsync(Guid mazoId, Guid tarjetaId, string intento, CancellationToken ct = default)
+    {
+        var mazo = await ObtenerOFallarAsync(mazoId, ct);
+        return mazo.ObtenerTarjeta(tarjetaId).EsRespuestaEscritaCorrecta(intento);
+    }
+
     public Task RepasarTarjetaAsync(Guid mazoId, Guid tarjetaId, bool recordada, CancellationToken ct = default)
     {
         var hoy = Hoy;
@@ -88,9 +99,6 @@ public sealed class MazosServicio(IMazoRepositorio repositorio, TimeProvider rel
     }
 
     // ---------- Internos ----------
-    private static IEnumerable<Opcion>? ComoOpciones(TarjetaDatos d) =>
-        d.Opciones?.Select(o => new Opcion(o.Texto, o.EsCorrecta));
-
     private async Task<Mazo> ObtenerOFallarAsync(Guid id, CancellationToken ct) =>
         await repositorio.ObtenerAsync(id, ct) ?? throw new ExcepcionDeDominio("El mazo ya no existe.");
 

@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Guardar para Tarjetas",
+  "version": "1.0.0",
+  "description": "Guarda como archivo, en tu computadora, el texto que seleccionás en Gemini para importarlo en la app Tarjetas. Funciona 100 % en local: no se conecta a ningún servidor.",
+  "content_scripts": [
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

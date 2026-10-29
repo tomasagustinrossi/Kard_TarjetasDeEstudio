@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tarjetas.App.ViewModels"
+             xmlns:modelos="clr-namespace:Tarjetas.App.Modelos"
+             x:Class="Tarjetas.App.Paginas.RecompensasPage"
+             x:DataType="vm:RecompensasViewModel"
+             Title="Recompensas por mazo"
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="{AppThemeBinding Light={StaticResource FondoClaro}, Dark={StaticResource FondoOscuro}}">
+
+    <Grid RowDefinitions="Auto,*" Padding="20,12,20,0" RowSpacing="12">
+        <Label Text="{Binding Total}" FontSize="16" FontAttributes="Bold" />
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Mazos}" SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.EmptyView>
+                <Label Text="Todavía no hay mazos. Completá un repaso con un 70 % de aciertos o más para ganar puntos."
+                       TextColor="{StaticResource Gris}" HorizontalTextAlignment="Center" Margin="0,48" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="modelos:RecompensaItem">
+                    <Border BackgroundColor="{Binding Fondo}" Stroke="{Binding Borde}" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12" Padding="16">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="4">
+                            <Label Text="{Binding Nombre}" FontSize="17" FontAttributes="Bold" LineBreakMode="TailTruncation" />
+                            <Label Grid.Column="1" Text="{Binding Puntos}" FontSize="17" FontAttributes="Bold" />
+                            <Label Grid.Row="1" Text="{Binding Detalle}" FontSize="13" Opacity="0.7" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Rango}" FontSize="13" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

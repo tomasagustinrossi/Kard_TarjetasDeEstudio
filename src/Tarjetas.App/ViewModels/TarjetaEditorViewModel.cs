@@ -67,7 +67,7 @@ public partial class TarjetaEditorViewModel(MazosServicio servicio) : Observable
         Pregunta = tarjeta.Pregunta;
         Respuesta = tarjeta.Respuesta;
         Opciones.Clear();
-        foreach (var o in tarjeta.Opciones) Opciones.Add(NuevaOpcion(o.Texto, o.EsCorrecta));
+        foreach (var o in tarjeta.Opciones) Opciones.Add(NuevaOpcion(o.Texto, o.EsCorrecta, o.Justificacion));
         Tipo = tarjeta.Tipo;
     }
 
@@ -79,7 +79,8 @@ public partial class TarjetaEditorViewModel(MazosServicio servicio) : Observable
             foreach (var sobrante in Opciones.Where(o => o.EsCorrecta).Skip(1).ToList()) sobrante.EsCorrecta = false;
     }
 
-    private OpcionEditable NuevaOpcion(string texto = "", bool correcta = false) => new(texto, correcta, AlMarcar);
+    private OpcionEditable NuevaOpcion(string texto = "", bool correcta = false, string justificacion = "") =>
+        new(texto, correcta, justificacion, AlMarcar);
 
     // En "opción única" marcar una desmarca las demás.
     private void AlMarcar(OpcionEditable marcada)
@@ -121,6 +122,7 @@ public partial class TarjetaEditorViewModel(MazosServicio servicio) : Observable
         {
             o.Texto = "";
             o.EsCorrecta = false;
+            o.Justificacion = "";
         }
         Reiniciado?.Invoke();
         _ = MostrarAvisoAsync("Tarjeta guardada ✓");
@@ -158,7 +160,7 @@ public partial class TarjetaEditorViewModel(MazosServicio servicio) : Observable
         var opciones = EsEscrita
             ? null
             : Opciones.Where(o => !string.IsNullOrWhiteSpace(o.Texto))
-                      .Select(o => new OpcionDatos(o.Texto, o.EsCorrecta))
+                      .Select(o => new OpcionDatos(o.Texto, o.EsCorrecta, o.Justificacion))
                       .ToList();
         return new TarjetaDatos(Tipo, Pregunta, Respuesta, opciones);
     }

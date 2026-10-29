@@ -40,6 +40,24 @@ public class TarjetaPruebas
     }
 
     [Fact]
+    public void La_escrita_ignora_tildes_mayusculas_y_acepta_alternativas()
+    {
+        var t = Tarjeta.CrearEscrita("¿Capital?", "París | Paris Francia", Ahora);
+        Assert.True(t.EsRespuestaEscritaCorrecta("  paris "));
+        Assert.True(t.EsRespuestaEscritaCorrecta("PARÍS."));
+        Assert.False(t.EsRespuestaEscritaCorrecta("Roma"));
+        Assert.False(t.EsRespuestaEscritaCorrecta(""));
+    }
+
+    [Fact]
+    public void Las_opciones_conservan_su_justificacion()
+    {
+        var t = Tarjeta.Crear(TipoRespuesta.OpcionUnica, "¿?", "",
+            [new Opcion("A", true, "  porque sí "), new Opcion("B", false)], Ahora);
+        Assert.Equal("porque sí", t.Opciones[0].Justificacion);
+    }
+
+    [Fact]
     public void Rechaza_opciones_repetidas()
     {
         var repetidas = Opciones(("A", true), ("a", false));

@@ -2,7 +2,7 @@ using Tarjetas.Dominio;
 
 namespace Tarjetas.Aplicacion;
 
-public sealed record OpcionDatos(string Texto, bool EsCorrecta);
+public sealed record OpcionDatos(string Texto, bool EsCorrecta, string Justificacion = "");
 
 /// <summary>
 /// Datos para crear/editar una tarjeta. Una tarjeta simple "pregunta/respuesta" (como las de Gemini)
@@ -16,4 +16,7 @@ public sealed record TarjetaDatos(
 {
     public static TarjetaDatos Escrita(string pregunta, string respuesta) =>
         new(TipoRespuesta.Escrita, pregunta, respuesta);
+
+    internal IEnumerable<Opcion>? ComoOpciones() =>
+        Opciones?.Select(o => new Opcion(o.Texto, o.EsCorrecta, o.Justificacion));
 }

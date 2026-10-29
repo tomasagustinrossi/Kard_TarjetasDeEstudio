@@ -1,3 +1,4 @@
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Tarjetas.Dominio;
@@ -12,7 +13,8 @@ public sealed class RepositorioDeMazosJson(string carpeta) : IMazoRepositorio
 {
     private static readonly JsonSerializerOptions Opciones = new()
     {
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping // tildes y ñ en UTF-8 directo (más liviano que \u00ED)
     };
 
     private readonly SemaphoreSlim cerrojo = new(1, 1);

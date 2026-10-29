@@ -63,8 +63,8 @@
                 <VerticalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding Opciones}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="modelos:OpcionEditable">
-                            <Border Style="{StaticResource Panel}" Padding="8,0">
-                                <Grid ColumnDefinitions="Auto,*,Auto">
+                            <Border Style="{StaticResource Panel}" Padding="8,0,8,6">
+                                <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
                                     <CheckBox IsChecked="{Binding EsCorrecta}" Color="{StaticResource Acento}"
                                               VerticalOptions="Center" />
                                     <Entry Grid.Column="1" Text="{Binding Texto}" Placeholder="Opción"
@@ -74,6 +74,8 @@
                                             TextColor="{StaticResource Gris}" WidthRequest="40" HeightRequest="40" Padding="0"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TarjetaEditorViewModel}}, Path=QuitarOpcionCommand}"
                                             CommandParameter="{Binding .}" />
+                                    <Entry Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Justificacion}"
+                                           Placeholder="Justificación (opcional)" FontSize="13" />
                                 </Grid>
                             </Border>
                         </DataTemplate>
